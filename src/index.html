@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aplikasi manajemen inventaris dan stok barang">
+  <title>StockApp — Manajemen Inventaris</title>
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">📦</span><span>StockApp</span></div>
+      <nav class="nav-menu" aria-label="Navigasi utama">
+        <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+        <button class="nav-btn" data-tab="master">🏷️ Master Produk</button>
+        <button class="nav-btn" data-tab="operations">🔄 Operasional Stok</button>
+        <button class="nav-btn" data-tab="reports">📋 Laporan & Mutasi</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">SISTEM INVENTARIS</p><h1 id="page-title">Dashboard & Monitoring</h1></div></header>
+
+      <section id="tab-dashboard" class="tab-content active">
+        <div id="summary-cards" class="stat-cards"></div>
+        <div class="card"><div class="card-heading"><div><p class="eyebrow">MONITORING</p><h2>⚠️ Peringatan Stok Menipis</h2></div></div>
+          <div class="table-wrapper"><table class="data-table"><thead><tr><th>SKU</th><th>Nama Barang</th><th>Stok Saat Ini</th><th>Batas Min</th><th>Status</th></tr></thead><tbody id="low-stock-table-body"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="tab-master" class="tab-content">
+        <div class="grid-layout">
+          <div class="card"><p class="eyebrow">MASTER DATA</p><h2>Tambah Produk Baru</h2>
+            <form id="form-product" class="app-form">
+              <label for="prod-sku">SKU / Kode Barang</label><input id="prod-sku" required placeholder="Contoh: BRG-001">
+              <label for="prod-name">Nama Barang</label><input id="prod-name" required placeholder="Contoh: Keyboard USB">
+              <label for="prod-category">Kategori</label><select id="prod-category"><option>Elektronik</option><option>Peralatan Kantor</option><option>Suku Cadang</option><option>Lainnya</option></select>
+              <div class="form-row"><div><label for="prod-min-stock">Min. Stok Alarm</label><input id="prod-min-stock" type="number" min="0" value="5" required></div><div><label for="prod-price">Harga Satuan (Rp)</label><input id="prod-price" type="number" min="0" value="10000" required></div></div>
+              <button class="btn btn-primary" type="submit">+ Simpan Produk</button>
+            </form>
+          </div>
+          <div class="card"><div class="card-heading"><div><p class="eyebrow">INVENTARIS</p><h2>Daftar Master Produk</h2></div></div><div class="table-wrapper"><table class="data-table"><thead><tr><th>SKU</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Min Stok</th><th>Aksi</th></tr></thead><tbody id="master-table-body"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <section id="tab-operations" class="tab-content"><div class="card form-card"><p class="eyebrow">TRANSAKSI</p><h2>Form Mutasi Stok</h2>
+        <form id="form-operation" class="app-form"><label for="op-type">Jenis Transaksi</label><select id="op-type"><option value="IN">Stok Masuk (Inbound)</option><option value="OUT">Stok Keluar (Outbound)</option></select><label for="op-product">Pilih Produk</label><select id="op-product" required><option value="">-- Pilih Barang --</option></select><label for="op-qty">Jumlah (Quantity)</label><input id="op-qty" type="number" min="1" value="1" required><label for="op-note">No. Referensi / Keterangan</label><input id="op-note" placeholder="Contoh: PO-001 atau Penjualan"><button class="btn btn-success" type="submit">Proses Mutasi</button></form>
+      </div></section>
+
+      <section id="tab-reports" class="tab-content"><div class="card"><div class="card-heading"><div><p class="eyebrow">PELAPORAN</p><h2>Buku Mutasi Stok</h2></div><button id="export-csv" class="btn btn-secondary" type="button">⬇ Export CSV</button></div><div class="table-wrapper"><table class="data-table"><thead><tr><th>Waktu Transaksi</th><th>Tipe</th><th>Produk</th><th>Jumlah</th><th>Keterangan</th></tr></thead><tbody id="ledger-table-body"></tbody></table></div></div></section>
+    </main>
+  </div>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
